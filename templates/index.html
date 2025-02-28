@@ -12,7 +12,34 @@
     <form action="/get" method="post">
         <input type="text" name="mensaje" placeholder="Escribe tu mensaje aquí..." required>
         <button type="submit">Enviar</button>
+        <button id="start-record-btn" type="button">🎙️ Hablar</button>
     </form>
 </div>
+<script>const recordBtn = document.getElementById('start-record-btn');
+    const input = document.getElementById('user-input'); // Tu caja de texto
+    
+    if ('SpeechRecognition' in window || 'webkitSpeechRecognition' in window) {
+        const recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition)();
+        recognition.lang = 'es-ES'; // Idioma español
+    
+        recordBtn.addEventListener('click', () => {
+            recognition.start();
+            recordBtn.innerText = '🎙️ Escuchando...';
+        });
+    
+        recognition.onresult = (event) => {
+            const transcript = event.results[0][0].transcript;
+            input.value = transcript; // Pone el texto en la caja
+            recordBtn.innerText = '🎙️ Hablar';
+        };
+    
+        recognition.onerror = () => {
+            alert('No se pudo reconocer la voz');
+            recordBtn.innerText = '🎙️ Hablar';
+        };
+    } else {
+        alert('Tu navegador no soporta reconocimiento de voz');
+    }
+    </script>
 </body>
 </html>

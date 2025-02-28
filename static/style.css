@@ -33,3 +33,11 @@ button {
 button:hover {
     background-color: #1e5d20;
 }
+#start-record-btn {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+    border-radius: 5px;
+}
